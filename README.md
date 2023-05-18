@@ -2,10 +2,10 @@
 <br>
 Weather app on desktop
 
-![weather app](./image/weather-app/weather.PNG)
+![weather app](./image/weather-app/weather-2.PNG)
 <br>
 
-![weather app](./image/weather-app/weather.PNG)
+![weather app](./image/weather-app/weather-3.PNG)
 <br>
 Weather app on mobile devices
 
