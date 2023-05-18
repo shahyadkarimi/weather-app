@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ec90e57e0e.js" crossorigin="anonymous"></script>
+    <title>Weather App</title>
+    <link rel="stylesheet" href="./public/style.css">
+    <link rel="stylesheet" href="./public/custom.css">
+</head>
+
+<body class="bg-[rgba(248,250,252,0.8)] relative">
+    <div class="notification-wrapper z-50 sticky invisible opacity-0 top-5">
+        <div class="toast-not w-auto h-14 flex justify-between items-center px-2 gap-6 absolute right-3 bg-white shadow-md rounded-lg border-l-4">
+            <div class="not-icon-desc flex justify-center items-center gap-2">
+                <div class="not-icon w-9 h-9 flex justify-center items-center rounded-full">
+                    <img class="w-5" src="./image/wifi.svg" alt="">
+                </div>
+                <div class="not-desc">
+                    <h2 class="text-slate-800">You're Online Now</h2>
+                    <p class="text-[13px] text-slate-700">Hurray! Internet is connected</p>
+                </div>
+            </div>
+            <button class="not-close w-8 h-8  flex justify-center items-center bg-zinc-200 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 stroke-zinc-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>              
+            </button>
+        </div>
+    </div>
+    <div class="weather-app flex flex-col gap-5 sm:flex-row transition-all duration-200">
+        <div class="left-side bg-white w-full h-full flex flex-col p-3 gap-10 sm:max-w-[250px] md:max-w-[270px] lg:max-w-[300px] transition-all duration-200">
+            <form action="#" id="search-form" class="w-full flex flex-col gap-2">
+                <div class="error-msg opacity-0 hidden  border border-red-600 h-10 rounded-lg text-red-600 text-center leading-10 transition-all duration-200">
+                    <h3></h3>
+                </div>
+                <div class="search-box relative">
+                    <input class="w-full border h-10 rounded-lg px-8 outline-none ring-slate-800 focus:ring-2 italic placeholder:text-slate-800 transition-all duration-200" autocomplete="off" type="text" name="search" id="search" value="New York" placeholder="Search for places...">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6 absolute top-2/4 left-1 -translate-y-2/4 stroke-slate-800" fill="none"
+                        viewBox="0 0 24 24" stroke="" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <input
+                    class="cursor-pointer border w-full h-10 rounded-lg hover:bg-slate-50 active:bg-slate-100 text-slate-800 transition-all duration-200"
+                    type="submit" value="How's the weather?">
+            </form>
+            <div class="weather-temperature-icon w-full flex flex-col justify-center items-center gap-5">
+                <div class="skeleton loading temperature-icon">
+                    <img class="w-[350px] sm:w-[200px]" src="./image/4.png" alt="">
+                </div>
+                <div class="temperature-day flex gap-10 w-full justify-center items-center sm:gap-4 sm:flex-col">
+                    <h2 class="skeleton loading text-5xl relative sm:text-6xl lg:text-7xl">
+                        <span id="weather-temperature">16</span>°
+                        <span class="absolute text-5xl -top-2">c</span>
+                    </h2>
+                    <div class="skeleton loading flex flex-col sm:flex-row tracking-widest">
+                        <h2 class="text-4xl sm:text-2xl lg:text-4xl"><span class="day"></span>,</h2>
+                        <h2 class="text-4xl sm:text-2xl lg:text-4xl text-[#adadad7d]"><span class="hours">16</span>:<span class="minutes">00</span></h2>
+                    </div>
+                </div>
+                <hr class="w-80 border-zinc-100 my-2 sm:w-48 md:w-56 lg:w-64">
+                <div class="weather-status w-full flex justify-around">
+                    <div class="skeleton loading status flex items-center">
+                        <img class="w-10 sm:w-8 md:w-10" src="./image/35.png" alt="">
+                        <p class="font-semibold text-slate-900 ml-1 sm:text-sm md:text-base">Cloudy</p>
+                    </div>
+                    <div class="skeleton loading status flex  items-center">
+                        <img class="w-10 sm:w-8 md:w-10" src="./image/7.png" alt="">
+                        <p class="font-semibold text-slate-900 ml-1 sm:text-sm md:text-base">Rain - 30%</p>
+                    </div>
+                </div>
+                <div class="skeleton loading city-pic w-[90%] h-auto relative">
+                    <div class="">
+                        <img class="rounded-2xl" src="./image/spec.jpg" alt="">
+                    </div>
+                    <h2 id="city-name" class="font-semibold absolute rounded-2xl text-white text-lg flex justify-center items-center bg-[#000000b2] w-full h-full top-0">
+                        New York,Ny , USA</h2>
+                </div>
+            </div>
+        </div>
+        <div class="right-side w-full gap-7 flex flex-col p-3 sm:overflow-hidden lg:p-5">
+            <!-- Week -->
+            <div class="week w-full flex flex-row overflow-auto gap-2 py-2 lg:justify-between">
+                <div class="sunday h-40 lg:h-44 lg:px-10 py-2 px-8 bg-white flex flex-col justify-between items-center rounded-2xl shadow-sm">
+                    <h3 class="skeleton loading text-xl">Sun</h3>
+                    <div class="skeleton loading">
+                        <img class="w-[70px] h-auto" src="./image/26.png" alt="sunny" srcset="">
+                    </div>
+                    <h3 class="skeleton loading text-lg">15°<span class="text-zinc-400 ml-1">7°</span></h3>
+                </div>
+                <div class="monday h-40 lg:h-44 lg:px-10 py-2 px-8 bg-white flex flex-col justify-between items-center rounded-2xl shadow-sm">
+                    <h3 class="skeleton loading text-lg">Mon</h3>
+                    <div class="skeleton loading">
+                        <img class="w-[70px] h-auto" src="./image/8.png" alt="sunny" srcset="">
+                    </div>
+                    <h3 class="skeleton loading text-lg">12°<span class="text-zinc-400 ml-1">7°</span></h3>
+                </div>
+                <div  class="tuesday h-40 lg:h-44 lg:px-10 py-2 px-8 bg-white flex flex-col justify-between items-center rounded-2xl shadow-sm">
+                    <h3 class="skeleton loading text-lg">The</h3>
+                    <div class="skeleton loading">
+                        <img class="w-[70px] h-auto" src="./image/33.png" alt="sunny" srcset="">
+
+                    </div>
+                    <h3 class="skeleton loading text-lg">12°<span class="text-zinc-400 ml-1">7°</span></h3>
+                </div>
+                <div class="wednesday h-40 lg:h-44 lg:px-10 py-2 px-8 bg-white flex flex-col justify-between items-center rounded-2xl shadow-sm">
+                    <h3 class="skeleton loading text-lg">Wed</h3>
+                    <div class="skeleton loading">
+                        <img class="w-[70px] h-auto" src="./image/16.png" alt="sunny" srcset="">
+
+                    </div>
+                    <h3 class="skeleton loading text-lg">8°<span class="text-zinc-400 ml-1">-1°</span></h3>
+                </div>
+                <div class="thursday h-40 lg:h-44 lg:px-10 py-2 px-8 bg-white flex flex-col justify-between items-center rounded-2xl shadow-sm">
+                    <h3 class="skeleton loading text-lg">Thu</h3>
+                    <div class="skeleton loading">
+                        <img class="w-[70px] h-auto" src="./image/22.png" alt="sunny" srcset="">
+                    </div>
+                    <h3 class="skeleton loading text-lg">5°<span class="text-zinc-400 ml-1">-2°</span></h3>
+                </div>
+                <div class="friday h-40 lg:h-44 lg:px-10 py-2 px-8 bg-white flex flex-col justify-between items-center rounded-2xl shadow-sm">
+                    <h3 class="skeleton loading text-lg">Fri</h3>
+                    <div class="skeleton loading">
+                        <img class="w-[70px] h-auto" src="./image/17.png" alt="sunny" srcset="">
+                    </div>
+                    <h3 class="skeleton loading text-lg">4°<span class="text-zinc-400 ml-1">-4°</span></h3>
+                </div>
+                <div class="saturday h-40 lg:h-44 lg:px-10 py-2 px-8 bg-white flex flex-col justify-between items-center rounded-2xl shadow-sm">
+                    <h3 class="skeleton loading text-lg">Sat</h3>
+                    <div class="skeleton loading">
+                        <img class="w-[70px] h-auto" src="./image/5.png" alt="sunny" srcset="">
+                    </div>
+                    <h3 class="skeleton loading text-lg">3°<span class="text-zinc-400 ml-1">-3°</span></h3>
+                </div>
+            </div>
+
+            <!-- Highlights -->
+            <div class="highlights w-full gap-3 md:gap-5 grid grid-cols-4 lg:grid-cols-3">
+
+                <!-- UV Index -->
+                <div class="col-span-2 md:col-span-2 lg:col-span-1 bg-white w-full h-52 lg:h-56 relative flex justify-center items-end pb-10 shadow-md rounded-2xl">
+                    <h2 class="skeleton-absolute loading-absolute absolute top-3 left-4 text-slate-400">UV Index</h2>
+                    <div class="skeleton loading gauge relative">
+                        <div class="gauge-bg w-40 h-20 md:w-52 md:h-[104px] xl:w-[260px] xl:h-[130px] bg-slate-100 relative overflow-hidden">
+                            <div class="gauge-fill absolute h-full bg-yellow-400 top-full left-0 transition-all duration-500">
+                            </div>
+                            <div class="gauge-cover w-[75%] h-[150%] flex justify-center items-center pb-10 lg:pb-14 absolute rounded-full bg-white top-[25%] left-[50%] -translate-x-2/4">
+                                <h3 id="UV-index" class="text-[44px] md:text-5xl lg:text-6xl xl:text-7xl">5</h3>
+                            </div>
+                        </div>
+                        <span class="absolute -top-6 left-10 md:left-16 font-semibold text-slate-400">6</span>
+                        <span class="absolute -top-6 left-[100px] md:-top-5 md:left-36 xl:-top-6 xl:left-44 font-semibold text-slate-400">9</span>
+                        <span class="absolute top-3 left-[146px] md:top-4 md:left-[190px] xl:top-9 xl:left-[250px] font-semibold text-slate-400">12</span>
+                    </div>
+                </div>
+
+                <!-- Wind Status -->
+                <div
+                    class="col-span-2 md:col-span-2 lg:col-span-1 bg-white w-full h-52 lg:h-56 p-5 flex justify-center items-end relative shadow-md rounded-2xl">
+                    <h2 class="skeleton-absolute loading-absolute absolute top-3 left-4 text-slate-400">Wind Status</h2>
+                    <div class="flex flex-col justify-between w-full h-28 lg:h-32">
+                        <h3 class="skeleton loading"><span id="wind-status"
+                                class="text-4xl sm:text-[44px] md:text-[68px] lg:text-7xl">7.70</span><span
+                                class="text-base ml-1 lg:text-2xl">km/h</span></h3>
+                        <div class="skeleton loading wind-icon flex items-center gap-3">
+                            <div class="border p-1 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-indigo-600 rotate-[35deg]"
+                                    viewBox="0 0 20 20" fill="">
+                                    <path fill-rule="evenodd"
+                                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <h3 class="text-lg">WSW</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sunrise & Sunset -->
+                <div
+                    class="col-span-2 md:col-span-2 lg:col-span-1 bg-white w-full h-52 lg:h-56 p-5 flex justify-center items-end relative shadow-md rounded-2xl">
+                    <h2 class="skeleton-absolute loading-absolute absolute top-3 left-4 text-slate-400">Sunrise & Sunset</h2>
+                    <div class="flex flex-col justify-between w-full h-28 lg:h-32">
+                        <div class="skeleton loading sunrise flex items-center gap-3 md:gap-4">
+                            <div
+                                class="sunrise-icon w-10 h-10 lg:w-11 lg:h-11 rounded-full flex justify-center items-center bg-yellow-400 shadow-[inset_0px_0px_7px_0px_#ff6a00]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-white" viewBox="0 0 20 20"
+                                    fill="">
+                                    <path fill-rule="evenodd"
+                                        d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="sunrise-time">
+                                <h3 id="sunrise" class="md:text-lg">6:35 AM</h3>
+                                <h4 class="text-sm text-slate-400">-1m 46s</h4>
+                            </div>
+                        </div>
+                        <div class="skeleton loading sunset flex items-center gap-3 md:gap-4">
+                            <div
+                                class="sunrise-icon w-10 h-10 lg:w-11 lg:h-11 rounded-full flex justify-center items-center bg-yellow-400 shadow-[inset_0px_0px_7px_0px_#ff6a00]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-white" viewBox="0 0 20 20"
+                                    fill="">
+                                    <path fill-rule="evenodd"
+                                        d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="sunset-time">
+                                <h3 id="sunset" class="md:text-lg">5:42 PM</h3>
+                                <h4 class="text-sm text-slate-400">+2m 34s</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Humidity -->
+                <div
+                    class="col-span-2 md:col-span-2 lg:col-span-1 bg-white w-full h-52 lg:h-56 p-5 flex justify-start items-end relative shadow-md rounded-2xl">
+                    <h2 class="skeleton-absolute loading-absolute absolute top-3 left-4 text-slate-400">Humidity</h2>
+                    <div class="flex flex-col justify-between w-[80%] h-28 lg:h-32">
+                        <h3 class="skeleton loading relative"><span id="humidity"
+                                class="text-6xl md:text-[68px] lg:text-7xl">100</span> <span
+                                class="text-3xl absolute top-0">%</span></h3>
+                        <h4 class="skeleton loading sm:text-lg">Normal</h4>
+                    </div>
+                    <div class="humidity-chart skeleton-absolute loading-absolute absolute top-2/4 -translate-y-2/4 right-3">
+                        <div class="w-6 h-24 p-[2px] flex justify-center items-end border rounded-full">
+                            <div class="humidity-progress w-full h-[50%] bg-indigo-700 rounded-full transition-all duration-500"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visibility -->
+                <div
+                    class="col-span-2 md:col-span-2 lg:col-span-1 bg-white w-full h-52 lg:h-56 p-5 flex justify-center items-end relative shadow-md rounded-2xl">
+                    <h2 class="skeleton-absolute loading-absolute absolute top-3 left-4 text-slate-400">Visibility</h2>
+                    <div class="flex flex-col justify-between w-full h-28 lg:h-32">
+                        <h3 class="skeleton loading"><span id="visibility"
+                                class="text-5xl sm:text-6xl md:text-[68px] lg:text-7xl">5.2</span><span
+                                class="text-2xl">km</span></h3>
+                        <h4 class="skeleton loading sm:text-lg">Average</h4>
+                    </div>
+                </div>
+
+                <!-- Air Quality -->
+                <div
+                    class="col-span-2 md:col-span-2 lg:col-span-1 bg-white w-full h-52 lg:h-56 p-5 flex justify-start items-end relative shadow-md rounded-2xl">
+                    <h2 class="skeleton-absolute loading-absolute absolute top-3 left-4 text-slate-400">Air Quality</h2>
+                    <div class="flex flex-col justify-between w-[80%] h-28 lg:h-32">
+                        <h3 id="air-quality"
+                            class="skeleton loading text-5xl sm:text-[53px] md:text-[68px] lg:text-7xl">105</h3>
+                        <h4 class="skeleton loading sm:text-lg">Unhealthy</h4>
+                    </div>
+                    <div class="air-chart skeleton-absolute loading-absolute absolute top-2/4 -translate-y-2/4 right-3">
+                        <div class="w-6 h-24 p-[2px] flex justify-center items-end border rounded-full">
+                            <div class="air-quality-progress w-full h-[50%] bg-indigo-700 rounded-full transition-all duration-500"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="./public/js/weatherAPI.js"></script>
+    <script src="./public/js/ui.js"></script>
+    <script src="./public/js/app.js"></script>
+</body>
+
+</html>
